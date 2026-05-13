@@ -1,4 +1,3 @@
 # FSST_Projekt_2026
-Beginning of online Gambling 
-Alex = dumm
+Beginning of online Gambling
 Blackjack
