@@ -1,3 +1,7 @@
 # FSST_Projekt_2026
-Beginning of online Gambling 
-Blackjack
+Black Jack game with login mechanics
+
+required python librarys:
+    - sqlite3
+    - os
+    - PyQt5
