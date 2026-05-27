@@ -1,5 +1,5 @@
 """
-Autor: Joel Walder, Johannes Kuen, Alexander Beck
+devs: Joel Walder, Johannes Kuen, Alexander Beck
 Dieses Skript dient als Datenbank-Editor für die SQLite-Datenbank,
 die von unserem Glücksspielprojekt verwendet wird.
 """
