@@ -4,11 +4,11 @@
 Joel Walder, Johannes Kuen, Alexander Beck
 
 ## description
-\textit{Black Jack} game with login mechanics
+**Black Jack** game with login mechanics
 
 ## required python librarys
     - sqlite3
     - os
     - tkinter
-
+---
 *test.py was used for testing only*
