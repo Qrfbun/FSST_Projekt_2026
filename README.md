@@ -1,3 +1,4 @@
+![Blackjack](icon.jpg)
 # FSST_Projekt_2026
 
 ## devs 
