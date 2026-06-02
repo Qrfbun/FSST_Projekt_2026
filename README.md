@@ -4,7 +4,7 @@
 Joel Walder, Johannes Kuen, Alexander Beck
 
 ## description
-Black Jack game with login mechanics
+\textit{Black Jack} game with login mechanics
 
 ## required python librarys
     - sqlite3
