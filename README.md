@@ -1,10 +1,12 @@
 # FSST_Projekt_2026
 
-devs: Joel Walder, Johannes Kuen, Alexander Beck
+## devs 
+Joel Walder, Johannes Kuen, Alexander Beck
 
+## description
 Black Jack game with login mechanics
 
-required python librarys:
+required python librarys
     - sqlite3
     - os
     - tkinter
