@@ -8,7 +8,7 @@ Joel Walder, Johannes Kuen, Alexander Beck
 ~~and definitly addicting~~
 
 ## required python librarys
-    - sqlite3
+   == - sqlite3 ==
     - os
     - tkinter
 ---
