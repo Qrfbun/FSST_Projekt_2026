@@ -279,6 +279,99 @@ def update_profit(username, amount):
     conn.commit()
     conn.close()
 
+#Benutzernamen ändern
+def change_username(
+    old_username,
+    new_username
+):
+
+    conn = connect()
+    cursor = conn.cursor()
+
+    try:
+
+        cursor.execute("""
+        UPDATE Spieler
+        SET Username = ?
+        WHERE Username = ?
+        """, (
+            new_username,
+            old_username
+        ))
+
+        conn.commit()
+
+        return True
+
+    except sqlite3.IntegrityError:
+
+        return False
+
+    finally:
+
+        conn.close()
+
+#Passwort ändern
+def change_password(
+    username,
+    new_password,
+    old_password
+):
+    conn = connect()
+    cursor = conn.cursor()
+    try:
+        cursor.execute(
+        """
+        SELECT Password FROM Spieler
+        WHERE (Username = ? AND Password = ?)
+        """, (username, old_password))
+
+        result = cursor.fetchone()
+
+        if not result:
+            return False
+
+    except sqlite3.IntegrityError:
+        return False
+
+    try:
+        cursor.execute(
+        """
+        UPDATE Spieler
+        SET Password = ?
+        WHERE (Username = ?  AND Password = ?)
+        """, 
+        (
+            new_password,
+            username,
+            old_password
+        ))
+
+        conn.commit()
+
+        return True
+
+    except sqlite3.IntegrityError:
+
+        return False
+
+    finally:
+        conn.close()
+
+def get_stats(username):
+    conn = connect()
+    cursor = conn.cursor()
+
+    cursor.execute("""
+    SELECT Username, Token, Profit, Games_played, Games_won, Games_lost
+    FROM Spieler
+    WHERE Username = ?
+    """, (username,))
+
+    result = cursor.fetchone()
+    conn.close()
+
+    return result
 
 #Tabelle beim Import erstellen
 create_table()
