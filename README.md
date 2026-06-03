@@ -1,7 +1,15 @@
+![Blackjack](icon.jpg)
 # FSST_Projekt_2026
-Black Jack game with login mechanics
 
-required python librarys:
+## devs 
+Joel Walder, Johannes Kuen, Alexander Beck
+
+## description
+**Black Jack** game with login mechanics
+
+## required python librarys
     - sqlite3
     - os
-    - PyQt5
+    - tkinter
+    
+*test.py was used for testing only*

@@ -1,5 +1,5 @@
 """
-Autor: Joel Walder, Johannes Kuen, Alexander Beck
+devs: Joel Walder, Johannes Kuen, Alexander Beck
 Dieses Skript enthält die gesamte Blackjack-Logik:
 Kartendeck, Kartenwerte, Ass-Regel und ASCII-Anzeige.
 """
@@ -22,9 +22,10 @@ CARD_SUITS = ["♠", "♥", "♦", "♣"]
 def create_deck():
     deck = []
 
-    for suit in CARD_SUITS:
-        for value in CARD_VALUES:
-            deck.append((value, suit))
+    for i in range(6):
+        for suit in CARD_SUITS:
+            for value in CARD_VALUES:
+                deck.append((value, suit))
 
     return deck
 
@@ -106,11 +107,11 @@ def compare_hands(player_hand, dealer_hand):
 def card_to_ascii(card, hidden=False):
     if hidden:
         return [
-            "┌─────┐",
-            "│░░░░░│",
-            "│░░░░░│",
-            "│░░░░░│",
-            "└─────┘"
+            "┌───────┐",
+            "│░░░░░░░│",
+            "│░░░░░░░│",
+            "│░░░░░░░│",
+            "└───────┘"
         ]
 
     value = card[0]
@@ -120,23 +121,23 @@ def card_to_ascii(card, hidden=False):
     right = f"{value:>2}"
 
     return [
-        "┌─────┐",
+        "┌───────┐",
         f"│ {left}    │",
         f"│   {suit}   │",
         f"│    {right} │",
-        "└─────┘"
+        "└───────┘"
     ]
 
 
 #Eine Hand als ASCII-Bild zusammenbauen
-def hand_to_ascii(hand, hidden_second_card=False):
+def hand_to_ascii(hand, hide_second=False):
     if len(hand) == 0:
         return "(keine Karten)"
 
     all_cards = []
 
     for index, card in enumerate(hand):
-        if hidden_second_card and index == 1:
+        if hide_second and index == 1:
             all_cards.append(card_to_ascii(card, hidden=True))
         else:
             all_cards.append(card_to_ascii(card, hidden=False))
@@ -152,7 +153,7 @@ def hand_to_ascii(hand, hidden_second_card=False):
 #Hand mit Titel als Text zurückgeben
 def hand_summary(title, hand, hidden_second_card=False):
     text = f"{title}:\n"
-    text += hand_to_ascii(hand, hidden_second_card=hidden_second_card)
+    text += hand_to_ascii(hand, hide_second=hidden_second_card)
 
     if not hidden_second_card:
         text += f"\nPunkte: {hand_value(hand)}"
