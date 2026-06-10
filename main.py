@@ -68,6 +68,14 @@ def switch_frame(target_frame):
 # HILFSFUNKTIONEN & VALIDIERUNGEN
 #==============================================================================
 
+def senter_pressed(event):
+    if current_frame == login_frame:
+        login()
+    elif current_frame == change_pw_frame:
+        submit_change_password()
+    elif current_frame == change_user_frame:
+        submit_change_username()
+
 def update_info():
     """Holt die aktuellen Tokens aus der DB und aktualisiert die Anzeige."""
     tokens = db_editor.get_tokens(current_user)
@@ -119,8 +127,8 @@ def check_settings_allowed():
 
 def submit_change_password():
     """Übergibt Altes und Neues Passwort an die DB und prüft das Resultat."""
-    old_pw = old_pw_entry.get().strip()
-    new_pw = new_pw_entry.get().strip()
+    old_pw = old_pw_entry.get()
+    new_pw = new_pw_entry.get()
     
     # Eingabeprüfung auf leere Felder
     if not old_pw or not new_pw:
@@ -130,6 +138,10 @@ def submit_change_password():
     # Sicherheitsprüfung für das neue Passwort
     if len(new_pw) < 4:
         messagebox.showerror("Fehler", "Das neue Passwort muss mindestens 4 Zeichen haben.")
+        return
+    
+    if " " in new_pw:
+        messagebox.showerror("Fehler", "Das neue Passwort darf keine Leerzeichen enthalten.")
         return
 
     # Aufruf der DB-Funktion. Gibt True zurück, wenn das alte PW stimmte und geändert wurde
@@ -146,7 +158,7 @@ def submit_change_password():
 def submit_change_username():
     """Übergibt den neuen Usernamen an die DB und validiert das Ergebnis."""
     global current_user
-    new_user = new_user_entry.get().strip()
+    new_user = new_user_entry.get()
     
     # Eingabeprüfung auf leeren String
     if not new_user:
@@ -156,6 +168,11 @@ def submit_change_username():
     # Längenbegrenzung einhalten
     if len(new_user) > 20:
         messagebox.showerror("Fehler", "Username zu lang (max. 20 Zeichen).")
+        return
+
+    # Leerzeichen im Username verhindern
+    if " " in new_user:
+        messagebox.showerror("Fehler", "Benutzername darf keine Leerzeichen enthalten.")
         return
 
     # Aufruf der DB-Funktion. Gibt True zurück, wenn der Name frei war und geändert wurde
@@ -219,8 +236,8 @@ def logout():
 
 def login():
     global current_user
-    username = username_entry.get().strip()
-    password = password_entry.get().strip()
+    username = username_entry.get()
+    password = password_entry.get()
 
     if username == "" or password == "":
         messagebox.showerror("Fehler", "Bitte Benutzername und Passwort eingeben.")
@@ -234,13 +251,17 @@ def login():
     if user is None:
         messagebox.showerror("Fehler", "Login fehlgeschlagen.")
         return
+    
+    if " " in username or " " in password:
+        messagebox.showerror("Fehler", "Benutzername und Passwort dürfen keine Leerzeichen enthalten.")
+        return
 
     current_user = username
     open_game_screen()
 
 def register():
-    username = username_entry.get().strip()
-    password = password_entry.get().strip()
+    username = username_entry.get()
+    password = password_entry.get()
 
     if username == "" or password == "":
         messagebox.showerror("Fehler", "Bitte Benutzername und Passwort eingeben.")
@@ -252,6 +273,10 @@ def register():
 
     if len(password) < 4:
         messagebox.showerror("Fehler", "Passwort muss mindestens 4 Zeichen haben.")
+        return
+    
+    if " " in username or " " in password:
+        messagebox.showerror("Fehler", "Benutzername und Passwort dürfen keine Leerzeichen enthalten.")
         return
 
     success = db_editor.create_player(username, password)
@@ -481,6 +506,8 @@ logout_btn = tk.Button(settings_bar, text="Abmelden", font=("Arial", 11), width=
 logout_btn.grid(row=0, column=3, padx=5)
 
 
+
+
 #==============================================================================
 # UI AUFBAU: PASSWORD CHANGE FRAME
 #==============================================================================
@@ -531,7 +558,7 @@ tk.Button(stats_frame, text="Zurück zum Spiel", font=("Arial", 14), width=20, c
 #==============================================================================
 
 # Enter-Taste führt den Login nur aus, solange der User im Login-Fenster ist
-root.bind("<Return>", lambda event: login() if current_frame == login_frame else None)
+root.bind("<Return>", enter_pressed)
 
 # Setzen des initialen Frames beim Programmstart
 switch_frame(login_frame)

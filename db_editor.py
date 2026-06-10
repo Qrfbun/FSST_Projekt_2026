@@ -59,10 +59,10 @@ def player_exists(username):
 
 #Neuen Spieler erstellen
 def create_player(username, password):
-    username = username.strip()
-    password = password.strip()
-
     if username == "" or password == "":
+        return False
+    
+    if " " in username or " " in password:
         return False
 
     conn = connect()
@@ -88,10 +88,10 @@ def create_player(username, password):
 
 #Login eines Spielers überprüfen
 def login(username, password):
-    username = username.strip()
-    password = password.strip()
-
     if username == "" or password == "":
+        return None
+    
+    if " " in username or " " in password:
         return None
 
     conn = connect()

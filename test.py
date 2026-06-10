@@ -1,3 +1,3 @@
 import db_editor
 
-db_editor.delete_player("Alexander", "1234")
+db_editor.delete_player("w", "w")
