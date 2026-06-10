@@ -68,7 +68,7 @@ def switch_frame(target_frame):
 # HILFSFUNKTIONEN & VALIDIERUNGEN
 #==============================================================================
 
-def senter_pressed(event):
+def enter_pressed(event):
     if current_frame == login_frame:
         login()
     elif current_frame == change_pw_frame:
