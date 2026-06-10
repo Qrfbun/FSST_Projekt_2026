@@ -1,3 +1,3 @@
 import db_editor
 
-print(not db_editor.login("test", "test"))
+db_editor.delete_player("Alexander", "1234")

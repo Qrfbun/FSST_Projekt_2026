@@ -375,6 +375,13 @@ def stand():
 
 def end_round():
     """Setzt den Rundenstatus zurück und reaktiviert die Eingaben."""
+
+    tokens = db_editor.get_tokens(current_user)
+    if tokens <= 0:
+        messagebox.showinfo("Game Over", "Du hast keine Tokens mehr! Hie bekommst du 100 Tokens als Trostpreis.")
+        db_editor.update_tokens(current_user, 100)
+        update_info()
+        
     global game_running
     game_running = False
     set_game_buttons("disabled")
